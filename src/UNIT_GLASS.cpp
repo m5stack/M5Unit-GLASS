@@ -45,7 +45,7 @@ void UNIT_GLASS::clear(void) {
 
     data[0] = 1;
     writeBytes(_addr, GLASS_CLEAR_REG, data, 1);
-    delay(1);
+    delay(10);
 }
 
 void UNIT_GLASS::show(void) {
@@ -53,7 +53,7 @@ void UNIT_GLASS::show(void) {
 
     data[0] = 1;
     writeBytes(_addr, GLASS_SHOW_REG, data, 1);
-    delay(1);
+    delay(10);
 }
 
 void UNIT_GLASS::draw_string(uint8_t x, uint8_t y, uint8_t fonts,
