@@ -1,7 +1,7 @@
 #include "UNIT_GLASS.h"
 
 void UNIT_GLASS::writeBytes(uint8_t addr, uint8_t reg, uint8_t *buffer,
-                              uint8_t length) {
+                            uint8_t length) {
     _wire->beginTransmission(addr);
     _wire->write(reg);
     for (int i = 0; i < length; i++) {
@@ -11,7 +11,7 @@ void UNIT_GLASS::writeBytes(uint8_t addr, uint8_t reg, uint8_t *buffer,
 }
 
 void UNIT_GLASS::readBytes(uint8_t addr, uint8_t reg, uint8_t *buffer,
-                             uint8_t length) {
+                           uint8_t length) {
     uint8_t index = 0;
     _wire->beginTransmission(addr);
     _wire->write(reg);
@@ -23,7 +23,7 @@ void UNIT_GLASS::readBytes(uint8_t addr, uint8_t reg, uint8_t *buffer,
 }
 
 bool UNIT_GLASS::begin(TwoWire *wire, uint8_t addr, uint8_t sda, uint8_t scl,
-                         uint32_t speed) {
+                       uint32_t speed) {
     _wire  = wire;
     _addr  = addr;
     _sda   = sda;
@@ -37,10 +37,10 @@ bool UNIT_GLASS::begin(TwoWire *wire, uint8_t addr, uint8_t sda, uint8_t scl,
         return true;
     } else {
         return false;
-    }     
+    }
 }
 
-void UNIT_GLASS::clear(void) {   
+void UNIT_GLASS::clear(void) {
     uint8_t data[4];
 
     data[0] = 1;
@@ -48,7 +48,7 @@ void UNIT_GLASS::clear(void) {
     delay(1);
 }
 
-void UNIT_GLASS::show(void) {   
+void UNIT_GLASS::show(void) {
     uint8_t data[4];
 
     data[0] = 1;
@@ -56,7 +56,8 @@ void UNIT_GLASS::show(void) {
     delay(1);
 }
 
-void UNIT_GLASS::draw_string(uint8_t x, uint8_t y, uint8_t fonts, uint8_t mode) {   
+void UNIT_GLASS::draw_string(uint8_t x, uint8_t y, uint8_t fonts,
+                             uint8_t mode) {
     uint8_t data[4];
 
     data[0] = x;
@@ -66,7 +67,8 @@ void UNIT_GLASS::draw_string(uint8_t x, uint8_t y, uint8_t fonts, uint8_t mode) 
     writeBytes(_addr, GLASS_DRAW_STRING_REG, data, 4);
 }
 
-void UNIT_GLASS::draw_picture(uint8_t x, uint8_t y, uint8_t size_x, uint8_t size_y, uint8_t mode) {   
+void UNIT_GLASS::draw_picture(uint8_t x, uint8_t y, uint8_t size_x,
+                              uint8_t size_y, uint8_t mode) {
     uint8_t data[5];
 
     data[0] = x;
@@ -77,7 +79,7 @@ void UNIT_GLASS::draw_picture(uint8_t x, uint8_t y, uint8_t size_x, uint8_t size
     writeBytes(_addr, GLASS_DRAW_PICTURE_REG, data, 5);
 }
 
-void UNIT_GLASS::draw_point(uint8_t x, uint8_t y, uint8_t mode) {   
+void UNIT_GLASS::draw_point(uint8_t x, uint8_t y, uint8_t mode) {
     uint8_t data[3];
 
     data[0] = x;
@@ -86,7 +88,8 @@ void UNIT_GLASS::draw_point(uint8_t x, uint8_t y, uint8_t mode) {
     writeBytes(_addr, GLASS_DRAW_POINT_REG, data, 3);
 }
 
-void UNIT_GLASS::draw_line(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t mode) {   
+void UNIT_GLASS::draw_line(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2,
+                           uint8_t mode) {
     uint8_t data[5];
 
     data[0] = x1;
@@ -97,7 +100,7 @@ void UNIT_GLASS::draw_line(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8
     writeBytes(_addr, GLASS_DRAW_LINE_REG, data, 5);
 }
 
-void UNIT_GLASS::draw_circle(uint8_t x, uint8_t y, uint8_t r, uint8_t mode) {   
+void UNIT_GLASS::draw_circle(uint8_t x, uint8_t y, uint8_t r, uint8_t mode) {
     uint8_t data[4];
 
     data[0] = x;
@@ -107,7 +110,7 @@ void UNIT_GLASS::draw_circle(uint8_t x, uint8_t y, uint8_t r, uint8_t mode) {
     writeBytes(_addr, GLASS_DRAW_CIRCLE_REG, data, 4);
 }
 
-void UNIT_GLASS::invert(uint8_t inv) {   
+void UNIT_GLASS::invert(uint8_t inv) {
     uint8_t data[4];
 
     data[0] = inv;
@@ -115,7 +118,7 @@ void UNIT_GLASS::invert(uint8_t inv) {
     delay(1);
 }
 
-void UNIT_GLASS::color_invert(uint8_t inv) {   
+void UNIT_GLASS::color_invert(uint8_t inv) {
     uint8_t data[4];
 
     data[0] = inv;
@@ -123,7 +126,7 @@ void UNIT_GLASS::color_invert(uint8_t inv) {
     delay(1);
 }
 
-void UNIT_GLASS::dis_on_off(uint8_t sw) {   
+void UNIT_GLASS::dis_on_off(uint8_t sw) {
     uint8_t data[4];
 
     data[0] = sw;
@@ -131,7 +134,7 @@ void UNIT_GLASS::dis_on_off(uint8_t sw) {
     delay(1000);
 }
 
-void UNIT_GLASS::set_string_buffer(const char *buffer) {   
+void UNIT_GLASS::set_string_buffer(const char *buffer) {
     uint8_t data[4];
     uint16_t index = 0;
 
@@ -139,14 +142,14 @@ void UNIT_GLASS::set_string_buffer(const char *buffer) {
         data[0] = (uint8_t)index;
         data[1] = (uint8_t)(index >> 8);
         data[2] = *buffer;
-        
+
         writeBytes(_addr, GLASS_STRING_BUFFER_REG, data, 3);
         buffer++;
         index++;
     }
 }
 
-void UNIT_GLASS::set_picture_buffer(unsigned char *buffer, uint16_t size) {   
+void UNIT_GLASS::set_picture_buffer(unsigned char *buffer, uint16_t size) {
     uint8_t data[4];
     uint16_t index = 0;
 
@@ -154,7 +157,7 @@ void UNIT_GLASS::set_picture_buffer(unsigned char *buffer, uint16_t size) {
         data[0] = (uint8_t)index;
         data[1] = (uint8_t)(index >> 8);
         data[2] = *buffer;
-        
+
         writeBytes(_addr, GLASS_PICTURE_BUFFER_REG, data, 3);
         buffer++;
         index++;
@@ -164,11 +167,11 @@ void UNIT_GLASS::set_picture_buffer(unsigned char *buffer, uint16_t size) {
 uint8_t UNIT_GLASS::getFirmwareVersion(void) {
     _wire->beginTransmission(_addr);
     _wire->write(FIRMWARE_VERSION_REG);
-    _wire->endTransmission();  
+    _wire->endTransmission();
 
     uint8_t RegValue;
 
-    _wire->requestFrom(_addr, 1); 
+    _wire->requestFrom(_addr, 1);
     RegValue = Wire.read();
     return RegValue;
 }
@@ -184,7 +187,7 @@ void UNIT_GLASS::setBuzzer(uint16_t freq, uint8_t duty) {
 void UNIT_GLASS::enable_buzz(void) {
     uint8_t data[4];
     uint8_t reg = GLASS_DRAW_BUZZ_REG + 3;
-    
+
     data[0] = 1;
 
     writeBytes(_addr, reg, data, 1);
@@ -193,7 +196,7 @@ void UNIT_GLASS::enable_buzz(void) {
 void UNIT_GLASS::disable_buzz(void) {
     uint8_t data[4];
     uint8_t reg = GLASS_DRAW_BUZZ_REG + 3;
-    
+
     data[0] = 0;
 
     writeBytes(_addr, reg, data, 1);
@@ -209,7 +212,7 @@ uint8_t UNIT_GLASS::getKeyA(void) {
 uint8_t UNIT_GLASS::getKeyB(void) {
     uint8_t data[4];
     uint8_t reg = GLASS_DRAW_KEY_REG + 1;
-    
+
     readBytes(_addr, reg, data, 1);
     return data[0];
 }
