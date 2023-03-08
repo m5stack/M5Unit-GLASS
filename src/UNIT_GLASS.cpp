@@ -24,12 +24,11 @@ void UNIT_GLASS::readBytes(uint8_t addr, uint8_t reg, uint8_t *buffer,
 
 bool UNIT_GLASS::begin(TwoWire *wire, uint8_t addr, uint8_t sda, uint8_t scl,
                        uint32_t speed) {
-    _wire  = wire;
-    _addr  = addr;
-    _sda   = sda;
-    _scl   = scl;
-    _speed = speed;
-    _wire->begin(_sda, _scl, _speed);
+    _wire = wire;
+    _addr = addr;
+    _sda  = sda;
+    _scl  = scl;
+    _wire->begin(_sda, _scl);
     delay(10);
     _wire->beginTransmission(_addr);
     uint8_t error = _wire->endTransmission();
