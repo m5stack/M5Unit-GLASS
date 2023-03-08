@@ -63,6 +63,7 @@ void UNIT_GLASS::draw_string(uint8_t x, uint8_t y, uint8_t fonts,
     data[2] = fonts;
     data[3] = mode;
     writeBytes(_addr, GLASS_DRAW_STRING_REG, data, 4);
+    delay(1);
 }
 
 void UNIT_GLASS::draw_picture(uint8_t x, uint8_t y, uint8_t size_x,
