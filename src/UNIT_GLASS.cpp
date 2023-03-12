@@ -169,7 +169,7 @@ uint8_t UNIT_GLASS::getFirmwareVersion(void) {
 
     uint8_t RegValue;
 
-    _wire->requestFrom(_addr, 1);
+    _wire->requestFrom(_addr, (uint8_t)1);
     RegValue = Wire.read();
     return RegValue;
 }
