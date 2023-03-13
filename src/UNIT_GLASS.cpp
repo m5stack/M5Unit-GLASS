@@ -94,9 +94,7 @@ void UNIT_GLASS::draw_line(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2,
         data[1] = y2;
         data[2] = x1;
         data[3] = y1;
-    }
-    else
-    {
+    } else {
         data[0] = x1;
         data[1] = y1;
         data[2] = x2;
