@@ -1,13 +1,13 @@
 /*
 *******************************************************************************
 * Copyright (c) 2023 by M5Stack
-*                  Equipped with M5AtomS3 sample source code
-*                          配套  M5AtomS3 示例源代码
+*                  Equipped with M5AtomS3Lite sample source code
+*                          配套  M5AtomS3Lite 示例源代码
 * Visit for more information: https://docs.m5stack.com/en/unit/Glass%20Unit
 * 获取更多资料请访问: https://docs.m5stack.com/zh_CN/unit/Glass%20Unit
 *
 * Describe: Glass.
-* Date: 2023/2/23
+* Date: 2023/3/24
 *******************************************************************************
 Connect the Unit_Glass to Port and press the buttons on the left/right side of
 the Unit Glass to subtract/add to the counter.
@@ -20,10 +20,7 @@ UNIT_GLASS Glass;
 String string_buffer;
 
 void setup() {
-    M5.begin(true, true, false, false);
-    M5.Lcd.printf("Unit Glass Demo\n\n\n");
-    M5.Lcd.printf("Please connect\n\n your Unit-Glass\n\n");
-    M5.Lcd.printf("to PORT-A\n\n <--");
+    M5.begin(false, true, false, true);
     Wire.begin(2, 1);
 
     /* Unit-Glass init */
@@ -41,9 +38,13 @@ void setup() {
     Glass.set_string_buffer(string_buffer.c_str());
     Glass.draw_string(24, 24, 16, 1);
     Glass.show();
+    M5.dis.drawpix(0x00ff00);
+    M5.dis.show();
 }
 
 void loop() {
+    USBSerial.printf("\n\nUnit Glass Demo\n");
+    USBSerial.printf("Please connect your Unit-Glass to PORT-A");
     /* When key on Unit-Glass was pressed, update conut and print it out */
     static int count = 0;
     if (Glass.getKeyA() == 0) {

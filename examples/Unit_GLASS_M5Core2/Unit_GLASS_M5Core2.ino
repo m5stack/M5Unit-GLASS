@@ -1,33 +1,34 @@
 /*
 *******************************************************************************
 * Copyright (c) 2023 by M5Stack
-*                  Equipped with M5AtomS3 sample source code
-*                          配套  M5AtomS3 示例源代码
+*                  Equipped with M5Core2 sample source code
+*                          配套  M5Core2 示例源代码
 * Visit for more information: https://docs.m5stack.com/en/unit/Glass%20Unit
 * 获取更多资料请访问: https://docs.m5stack.com/zh_CN/unit/Glass%20Unit
 *
 * Describe: Glass.
 * Date: 2023/2/23
 *******************************************************************************
-Connect the Unit_Glass to Port and press the buttons on the left/right side of
+Connect the Unit_Glass to Port A and press the buttons on the left/right side of
 the Unit Glass to subtract/add to the counter.
-将Unit_Glass连接到Port,按Unit Glass左/右侧的按键来对计数器进行减/加.
+将Unit_Glass连接到Port A,按Unit Glass左/右侧的按键来对计数器进行减/加.
 */
-#include <M5AtomS3.h>
+#include <M5Core2.h>
 #include <UNIT_GLASS.h>
 
 UNIT_GLASS Glass;
 String string_buffer;
 
 void setup() {
-    M5.begin(true, true, false, false);
-    M5.Lcd.printf("Unit Glass Demo\n\n\n");
-    M5.Lcd.printf("Please connect\n\n your Unit-Glass\n\n");
-    M5.Lcd.printf("to PORT-A\n\n <--");
-    Wire.begin(2, 1);
+    M5.begin(true, false, true, false);
+    M5.Lcd.setTextSize(3);
+    M5.Lcd.setTextColor(0x867D);
+    M5.Lcd.printf(" Unit Glass Demo\n\n\n");
+    M5.Lcd.printf(" Please connect\n\n your Unit-Glass\n\n");
+    M5.Lcd.printf(" to PORT-A\n\n <--");
 
     /* Unit-Glass init */
-    Glass.begin(&Wire, GLASS_ADDR, 2, 1, 100000UL);
+    Glass.begin(&Wire, GLASS_ADDR, 32, 33, 100000UL);
     Glass.invert(0);
     Glass.color_invert(0);
     Glass.clear();
